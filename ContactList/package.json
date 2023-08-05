@@ -1,0 +1,14 @@
+{
+  "name": "contactlist",
+  "version": "1.0.0",
+  "description": "Contact List To Learn nodejs",
+  "main": "Index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Abhay Dutt",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
