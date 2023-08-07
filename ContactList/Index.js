@@ -1,11 +1,13 @@
 const express = require('express');
 const path = require('path');
 const port = 8000;
+const bodyParser = require('body-parser');
 
 const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 var contactList = [
     {
@@ -27,8 +29,26 @@ var contactList = [
 app.get('/', (request, response) => {
     return response.render('home', {
         title: "Contact List",
-        contact_list:contactList
+        contact_list: contactList
     });
+});
+
+app.post('/create_contact', (request, response) => {
+    //return response.redirect('/practice');
+    // console.log(request.body);
+    // console.log(request.body.name);
+    // console.log(request.body.number);
+
+    // contactList.push({
+    //     name: request.body.name,
+    //     number: request.body.number
+    // });
+
+    // return response.redirect('/');
+
+    contactList.push(request.body);
+
+    return response.redirect('back');
 });
 
 
