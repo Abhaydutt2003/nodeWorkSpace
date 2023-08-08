@@ -7,7 +7,23 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+//middleware
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static('assets'));
+
+
+// app.use((request,response,next)=>{
+//     request.my_name = "Abhay";
+//     console.log("middleware 1 called");
+//     next();
+// })
+
+// app.use((request,response,next)=>{
+//     console.log(request.my_name);
+//     console.log("Middleware 2 called");
+//     next();
+// })
 
 var contactList = [
     {

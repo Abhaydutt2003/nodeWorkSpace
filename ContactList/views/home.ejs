@@ -4,32 +4,35 @@
     <title>
         <%= title%>
     </title>
+    <link rel="stylesheet" href="/css/home.css" >
 </head>
 
 <body>
-    <h1>Basic contact List</h1>
+    <h1 id = "tell">Basic contact List</h1>
 
-    <ul>
+    <!-- <ul>
         <% for(let i of contact_list) { %>
             <li>
-                <p>
+                <div>
                     <%= i.name%>
-                </p>
-                <p>
+                </div>
+                <div>
                     <%= i.number%>
-                </p>
+                </div>
             </li>
 
             <% }%>
-    </ul>
+    </ul> -->
+
+    
 
     <form action="/create_contact" method="POST">
-        <input type="text" name="name" placeholder="Enter your name" required><br><br>
-        <input type="number" name="number" placeholder="Enter number" required><br><br>
+        <input type="text" name="name" placeholder="Enter your name" required>
+        <input type="number" name="number" placeholder="Enter number" required>
         <button type="submit">Add Contact</button>
     </form>
 
-
+    <script type="text/javascript" src="/js/home.js"></script>
 </body>
 
 </html>
