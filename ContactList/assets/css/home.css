@@ -3,7 +3,9 @@
 }
 
 body{
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 ul {
@@ -14,4 +16,19 @@ ul {
 
 #tell{
     color: gray;
+}
+
+.outer_box{
+    width: 40vw;
+    height: 5vw;
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+}
+
+.delete-button{
+    height:5px;
+    width:5px;
+    margin-bottom: 3px;
+    cursor: pointer;
 }

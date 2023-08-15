@@ -3,6 +3,9 @@ const path = require('path');
 const port = 8000;
 const bodyParser = require('body-parser');
 
+const db = require('./config/mongoose');
+const Contact = require('./models/contact');
+
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -49,21 +52,47 @@ app.get('/', (request, response) => {
     });
 });
 
+// app.post('/create_contact', (request, response) => {
+//     //return response.redirect('/practice');
+//     // console.log(request.body);
+//     // console.log(request.body.name);
+//     // console.log(request.body.number);
+
+//     // contactList.push({
+//     //     name: request.body.name,
+//     //     number: request.body.number
+//     // });
+
+//     // return response.redirect('/');
+
+//     contactList.push(request.body);
+
+//     return response.redirect('back');
+// });
+
 app.post('/create_contact', (request, response) => {
-    //return response.redirect('/practice');
-    // console.log(request.body);
-    // console.log(request.body.name);
-    // console.log(request.body.number);
+    Contact.create({
+        name: request.body.name,
+        number: request.body.number
+    }, (error, newContact) => {
+        if (error) {
+            console.log('Error in creating a contact');
+            return;
+        } else {
+            console.log('$$$$$$$$$$', newContact);
+            return response.response('back');
+        }
+    })
+});
 
-    // contactList.push({
-    //     name: request.body.name,
-    //     number: request.body.number
-    // });
-
-    // return response.redirect('/');
-
-    contactList.push(request.body);
-
+app.get('/delete-contact/', function (request, response) {
+    let number = request.query.number;
+    let index = contactList.findIndex((contact) => {
+        return contact.number == number;
+    });
+    if (index != -1) {
+        contactList.splice(index, 1);
+    }
     return response.redirect('back');
 });
 

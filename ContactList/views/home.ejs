@@ -4,11 +4,11 @@
     <title>
         <%= title%>
     </title>
-    <link rel="stylesheet" href="/css/home.css" >
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 
 <body>
-    <h1 id = "tell">Basic contact List</h1>
+    <h1 id="tell">Basic contact List</h1>
 
     <!-- <ul>
         <% for(let i of contact_list) { %>
@@ -24,7 +24,27 @@
             <% }%>
     </ul> -->
 
-    
+    <ul>
+        <% for (let i of contact_list) {%>
+            <li>
+                <div class="outer_box">
+                    <div class="display_name">
+                        <%= i.name%>
+                    </div>
+                    <div class="display_number">
+                        <%= i.number%>
+                    </div>
+                </div>
+                <div class="delete-button">
+                    <a href="/delete-contact/?number=<%= i.number %>">
+                        DELETE
+                    </a>
+                </div>
+            </li>
+            <%}%>
+    </ul>
+
+
 
     <form action="/create_contact" method="POST">
         <input type="text" name="name" placeholder="Enter your name" required>
