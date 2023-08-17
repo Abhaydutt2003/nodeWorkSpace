@@ -46,10 +46,33 @@ var contactList = [
 ];
 
 app.get('/', (request, response) => {
-    return response.render('home', {
-        title: "Contact List",
-        contact_list: contactList
-    });
+    // return response.render('home', {
+    //     title: "Contact List",
+    //     contact_list: contactList
+    // });
+
+    //now need to use promises
+    // Contact.find({}, function(err,contacts){
+    //     if(err){
+    //         console.log("Errro in fetching");
+    //         return;
+    //     }else{
+    //         return response.render('home',{
+    //             title: "Contact List",
+    //             contact_list:contacts
+    //         })
+    //     }
+    // })
+
+    Contact.find({}).then(function (contacts) {
+        return response.render('home', {
+            title: "Contact List",
+            contact_list: contacts
+        })
+    }).catch(function (error) {
+        console.log("Error in fetching contacts");
+        return;
+    })
 });
 
 // app.post('/create_contact', (request, response) => {
@@ -71,29 +94,50 @@ app.get('/', (request, response) => {
 // });
 
 app.post('/create_contact', (request, response) => {
+    // Contact.create({
+    //     name: request.body.name,
+    //     number: request.body.number
+    // }, (error, newContact) => {
+    //     if (error) {
+    //         console.log('Error in creating a contact');
+    //         return;
+    //     } else {
+    //         console.log('$$$$$$$$$$', newContact);
+    //         return response.response('back');
+    //     }
+    // })
+    //error above because model.create no longer accepts a callback,now it return promise
+
     Contact.create({
         name: request.body.name,
         number: request.body.number
-    }, (error, newContact) => {
-        if (error) {
-            console.log('Error in creating a contact');
-            return;
-        } else {
-            console.log('$$$$$$$$$$', newContact);
-            return response.response('back');
-        }
+    }).then(function (result) {
+        console.log(result);
+        return response.redirect('back');
+    }).catch((err) => {
+        console.log("Error in creating contact");
+        return;
     })
+
 });
 
 app.get('/delete-contact/', function (request, response) {
-    let number = request.query.number;
-    let index = contactList.findIndex((contact) => {
-        return contact.number == number;
-    });
-    if (index != -1) {
-        contactList.splice(index, 1);
-    }
-    return response.redirect('back');
+    // let number = request.query.number;
+    // let index = contactList.findIndex((contact) => {
+    //     return contact.number == number;
+    // });
+    // if (index != -1) {
+    //     contactList.splice(index, 1);
+    // }
+    // return response.redirect('back');
+    let id = request.query.id;
+    Contact.findByIdAndDelete(id).then(function(){
+        console.log("deleted successfully");
+        response.redirect('back');
+    }).catch(function(err){
+        console.log("Erorr in deleting");
+        return;
+    })
 });
 
 
